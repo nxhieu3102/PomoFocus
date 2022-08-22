@@ -1,0 +1,46 @@
+:root {
+    --white-color: #fff;
+    --black-color: #000;
+    --bg-color-pomo: rgb(217, 85, 80);
+    --bg-color-sb: rgb(76, 145, 149);
+    --bg-color-lb: rgb(69, 124, 163);
+    --text-color: --white-color;
+
+    --header-height: 60px;
+    --footer-height: 205px;
+}
+
+* {
+    box-sizing: inherit;
+}
+ul {
+    padding: 0;
+    margin: 0;
+}
+html {
+    font-size: 62.5%;
+    line-height: 1.6rem;
+    font-family: "Roboto", sans-serif;
+    box-sizing: border-box;
+    background-color: var(--bg-color-pomo);
+}
+
+body {
+    position: relative;
+    background-color: var(--bg-color-pomo);
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+    margin: 0;
+    padding: 0;
+}
+*:focus {
+    outline: 0 !important;
+}
+a:hover{
+    text-decoration: none;
+}
