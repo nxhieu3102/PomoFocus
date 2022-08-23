@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="./assests/css/index.css">
     <title>Pomofocus</title>
     <link rel="icon" href="./assests/image/LOGO.ico" type="image/x-icon" />
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -43,24 +44,46 @@
         </div>
     </header>
     <div class="app-container">
-        <div class="app-wrap">
+        <div class="time-wrap">
             <div class="time-container">
                 <div class="pomo-status">
-                    <button class="pomo-status-btn-active">Pomodoro</button>
-                    <button class="pomo-status-btn">Short Break</button>
-                    <button class="pomo-status-btn">Long Break</button>
+                    <button class="pomo-status-btn-active btn-pomo">Pomodoro</button>
+                    <button class="pomo-status-btn btn-sb">Short Break</button>
+                    <button class="pomo-status-btn btn-lb">Long Break</button>
                 </div>
                 <div class="timer">
-                    25:00
+                    <p id="minute">25</p>
+                    <p>:</p>
+                    <p id="second">00</p>
                 </div>
                 <div class="btn-wrap">
-                    <button class="btn">
-                        START
-                    </button>
+                    <button class="btn">START</button>
                 </div>
             </div>
+        </div>
+        <div class="task-wrap">
             <div class="task-container">
-                
+                <div class="task-bar">
+                    <span>Tasks</span>
+                    <div class="icon-wrap">
+                        <img class="icon" src="./assests/image/threedots-white.png" alt="threedots-white">
+                    </div>
+                </div>
+                <div class="task-list">
+                    <div class="task">
+                        <div class="task-info">
+                            <div class="task-status-active"></div>
+                            <div class="task-name-disabled">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+                        </div>
+                        <div class="task-icon-wrap">
+                            <img class="task-icon" src="./assests/image/vertical-ellipsis.png" alt="">
+                        </div>
+                    </div>
+                    <div class="add-task">
+                        <img class="add-task-icon" src="./assests/image/plus-circle-white.png" alt="">
+                        <span class="add-task-text">Add Task</span>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -68,5 +91,7 @@
     <footer id="footer">
 
     </footer>
+
+    <script type="text/javascript" src="./assests/js/index.js"></script>
 </body>
 </html>

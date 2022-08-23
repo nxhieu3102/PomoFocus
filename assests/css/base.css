@@ -22,12 +22,12 @@ html {
     line-height: 1.6rem;
     font-family: "Roboto", sans-serif;
     box-sizing: border-box;
-    background-color: var(--bg-color-pomo);
 }
 
 body {
     position: relative;
     background-color: var(--bg-color-pomo);
+    transition: background-color 0.5s ease-in-out 0s;
 }
 
 h1,
@@ -41,6 +41,18 @@ p {
 *:focus {
     outline: 0 !important;
 }
+
+*:active{
+    outline: none;
+}
+
+
 a:hover{
     text-decoration: none;
 }
+
+.icon{
+    width: 16px;
+    height: 16px;
+}
+
