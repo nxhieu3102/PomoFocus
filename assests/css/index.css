@@ -261,6 +261,25 @@
     border-radius: 6px;
     background-color: var(--white-color);
     border-left: 6px solid rgb(34, 34, 34);
+    margin-bottom: 8px;
+}
+
+.task-opt{
+    display: flex;
+    align-items: center;
+}
+
+.task-est-pomo{
+    display: flex;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgb(187, 187, 187);
+    margin-right: 18px;
+    align-items: center;
+}
+
+#pomo-done{
+    font-size: 18px;
 }
 
 .task-icon-wrap{
@@ -346,3 +365,215 @@
     transform: rotate(45deg);
 }
 
+
+.add-task-info{
+    display: none;
+}
+
+
+.add-task-info-wrap{
+    margin-top: 14px;
+    background-color: white;
+    padding: 20px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+
+}
+.task-title{
+    width: 100%;
+
+}
+
+#task-title-input{
+    border-radius: 4px;
+    font-size: 22px;
+    padding: 10px 0px;
+    box-shadow: none;
+    border: none;
+    color: rgb(85, 85, 85);
+    width: 100%;
+    box-sizing: border-box;
+    font-weight: bold;
+}
+
+#task-title-input::placeholder{
+    color: rgb(221, 221, 221);
+    font-style: italic;
+}
+
+
+.est-pomo{
+    margin-top: 10px;
+    font-size: 18px;
+    color: #555;
+    font-weight: bold;
+}
+
+.est-pomo-title{
+    margin-bottom: 8px;
+}
+
+.est-pomo-quantity{
+    display: flex;
+    align-items: center;
+}
+
+#est-pomo-input{
+    border-radius: 4px;
+    background-color: rgb(239, 239, 239);
+    font-size: 16px;
+    padding: 10px;
+    box-shadow: none;
+    border: none;
+    color: rgb(85, 85, 85);
+    width: 75px;
+    box-sizing: border-box;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+#est-pomo-input::-webkit-outer-spin-button,
+#est-pomo-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.btn-est-pomo{
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0.9;
+    padding: 10px 12px;
+    display: inline-block;
+    min-width: 0px;
+    width: 40px;
+    background-color: white;
+    color: rgb(85, 85, 85);
+    border: 1px solid rgb(223, 223, 223);
+    box-shadow: rgb(0 0 0 / 20%) 0px 2px 2px;
+    margin: 0px 2px;
+    line-height: 10px;
+    font-size: 10px;
+}
+
+.btn-est-pomo-icon{
+    width: 10px;
+    opacity: 0.6;
+}
+.add-more-info{
+    margin-top: 10px;
+}
+
+.add-more-info-btn{
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0.9;
+    font-size: 14px;
+    background: none;
+    border: none;
+    box-shadow: none;
+    color: rgba(0, 0, 0, 0.4);
+    font-weight: bold;
+    letter-spacing: 0.02em;
+    text-decoration: underline;
+    display: inline-block;
+}
+
+#task-note{
+    display: none;
+    /* display: block; */
+    border-radius: 4px;
+    background-color: rgb(239, 239, 239);
+    border: none;
+    padding: 10px 14px;
+    color: rgb(85, 85, 85);
+    width: 100%;
+    box-sizing: border-box;
+    height: 62px;
+    font-size: 15px;
+    line-height: 1.4em;
+    margin: 8px 0px;
+}
+
+.task-manipulation{
+    padding: 14px 20px;
+    text-align: right;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background-color: rgb(239, 239, 239);
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: right;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 100%;
+}
+
+.task-manipulation-cancle{
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0.9;
+    font-size: 14px;
+    padding: 8px 12px;
+    min-width: 70px;
+    display: inline-block;
+    margin-right: 14px;
+    background: none;
+    border: none;
+    color: rgb(136, 136, 136);
+    font-weight: bold;
+    box-shadow: none;
+}
+
+.task-manipulation-save{
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: rgb(0 0 0 / 20%) 0px 2px 2px;
+    color: white;
+    opacity: 0.9;
+    font-size: 14px;
+    padding: 8px 12px;
+    min-width: 70px;
+    border: 2px solid rgb(171, 171, 171);
+    pointer-events: none;
+    display: inline-block;
+    background-color: rgb(171, 171, 171);
+}
+
+.task-manipulation-save-enable{
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: rgb(0 0 0 / 20%) 0px 2px 2px;
+    color: white;
+    opacity: 0.9;
+    font-size: 14px;
+    padding: 8px 12px;
+    min-width: 70px;
+    background-color: rgb(34, 34, 34);
+    border: 2px solid rgb(34, 34, 34);
+    display: inline-block;
+}

@@ -39,6 +39,8 @@ class button {
             $('.btn').css("color", _this.#color)
             $('#minute').html(`${_this.#time.minute}`)
             $('#second').html(`${_this.#time.second}`)
+
+            APP.stopTimer()
         })
     }
 
@@ -63,13 +65,13 @@ class pomoButton extends button {
 }
 
 const sbBtn = new shortBreakButton($(".btn-sb"), "var(--bg-color-sb)", "rgb(76, 145, 149)",
-    { minute: 1, second: "00" }, "1px solid #448286")
+    { minute: 5, second: "00" }, "1px solid #448286")
 
 const lbBtn = new longBreakButton($(".btn-lb"), "var(--bg-color-lb)", "rgb(69, 124, 163)",
     { minute: 15, second: "00" }, "1px solid #3e6f92")
 
 const pomoBtn = new pomoButton($(".btn-pomo"), "var(--bg-color-pomo)", "rgb(217, 85, 80)",
-    { minute: 1, second: "00" }, "1px solid #c34c48")
+    { minute: 25, second: "00" }, "1px solid #c34c48")
 
 
 const APP = {
@@ -79,7 +81,8 @@ const APP = {
     refreshIntervalId: null,
     breakTimes: 0,
     currentStatus: null,
-
+    currentTask: null,
+    tasks: [],
     handleEventOfButton: function () {
         this.shortBreak.ClickEvent();
         this.longBreak.ClickEvent();
@@ -94,7 +97,7 @@ const APP = {
         $('#second').html(time.second)
 
         $('.btn').click(function () {
-            var audioElement = document.createElement('audio');
+            const audioElement = document.createElement('audio');
             audioElement.setAttribute('src', 'https://pomofocus.io/audios/button-press.wav');
             audioElement.play()
 
@@ -104,6 +107,87 @@ const APP = {
                 _this.startTimer()
             else _this.stopTimer()
         })
+    },
+
+    handleTasks: function(){
+        this.handleAddTask()
+        this.handleAddProject()
+    },
+
+    handleAddTask: function() {
+        const _this = this
+        $("#task-title-input").keyup(function(){
+            let taskTitle = $("#task-title-input").val()
+            if(taskTitle.length > 0) {
+                $(".task-manipulation-save").removeAttr("disabled")
+                $(".task-manipulation-save").addClass("task-manipulation-save-enable")
+                $(".task-manipulation-save").removeClass("task-manipulation-save")
+            }else {
+                $(".task-manipulation-save-enable").attr("disabled")
+                $(".task-manipulation-save-enable").addClass("task-manipulation-save")
+                $(".task-manipulation-save-enable").removeClass("task-manipulation-save-enable")
+            }
+        })
+
+        $("#est-pomo-inc").click(function() {
+            const quantity = parseInt($("#est-pomo-input").val()) + 1;
+            $("#est-pomo-input").val(quantity)
+        })
+
+        $("#est-pomo-des").click(function() {
+            const quantity = Math.max(1, parseInt($("#est-pomo-input").val()) - 1);
+            $("#est-pomo-input").val(quantity)
+        })
+
+        $(".task-manipulation-save").click(function() {
+            const taskTitle = $("#task-title-input").val()
+            const pomo = $("#est-pomo-input").val()
+            let task = {title: taskTitle, pomoDone: 0, pomoNotDone: pomo}
+            _this.tasks.push(task)
+            console.log(_this.tasks)
+            renderTask()
+            $(".add-task").css("display", "flex") 
+            $(".add-task-info").css("display", "none")
+        })
+
+        $(".task-manipulation-cancle").click(function() {
+            $(".add-task").css("display", "flex") 
+            $(".add-task-info").css("display", "none")
+
+        })
+
+        $(".add-task").click(function() {
+            $("#task-title-input").val("")
+            $(".add-task-info").css("display", "block")
+            $(".add-task").css("display", "none")
+        })
+
+        function renderTask() {
+            const task = _this.tasks[_this.tasks.length - 1]
+            console.log(task)
+            $(""+
+            "<div class='task'>" +
+                "<div class='task-info'>" +
+                "<div class='task-status'></div>" +
+                `<div class='task-name'>${task.title}</div>`+
+                "</div>"+
+                "<div class='task-opt'>"+
+                "<div class='task-est-pomo'>"+
+                `<p id='pomo-done'>${task.pomoDone}</p>`+
+                "/"+
+                `<p id='pomo-total'>${task.pomoNotDone}</p>`+
+                "</div>"+
+                "<div class='task-icon-wrap'>"+
+                "<img class='task-icon' src='./assests/image/vertical-ellipsis.png' alt=''>"+
+                "</div>"+
+                "</div>"+
+                "</div>"+
+            "").insertBefore(".add-task")
+        }
+    },
+
+    handleAddProject: function() {
+
     },
 
     startTimer: function () {
@@ -165,12 +249,7 @@ const APP = {
         $('.btn').css("top", "0")
         clearInterval(this.refreshIntervalId)
     },
-
-    start: function () {
-        this.handleEventOfButton();
-        this.handleTimer();
-    },
-
+    
     getCurrentStatus: function () {
         let temp = $('.pomo-status-btn-active').hasClass('.btn-pomo')
         if (temp == true) {
@@ -189,6 +268,12 @@ const APP = {
             this.currentStatus = "longBreak";
             return;
         }
+    },
+
+    start: function () {
+        this.handleEventOfButton();
+        this.handleTimer();
+        this.handleTasks();
     }
 }
 

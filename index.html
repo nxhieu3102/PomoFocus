@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
         integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="./assests/css/base.css">
     <link rel="stylesheet" href="./assests/css/index.css">
     <title>Pomofocus</title>
     <link rel="icon" href="./assests/image/LOGO.ico" type="image/x-icon" />
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 
 </head>
+
 <body>
     <header id="header">
         <div class="header-wrap">
@@ -29,15 +35,15 @@
                 <div class="header-icon">
                     <button class="header-icon-item">
                         <img class="header-icon-img" src="./assests/image/graph-white.png" alt="">
-                        <div class="header-icon-item-text">Report</div> 
+                        <div class="header-icon-item-text">Report</div>
                     </button>
                     <button class="header-icon-item">
                         <img class="header-icon-img" src="./assests/image/config-white.png" alt="">
-                        <div class="header-icon-item-text">Setting</div> 
+                        <div class="header-icon-item-text">Setting</div>
                     </button>
                     <div class="header-icon-item">
                         <img class="header-icon-img" src="./assests/image/user-white.png" alt="">
-                        <div class="header-icon-item-text">Login</div> 
+                        <div class="header-icon-item-text">Login</div>
                     </div>
                 </div>
             </div>
@@ -70,23 +76,42 @@
                     </div>
                 </div>
                 <div class="task-list">
-                    <div class="task">
-                        <div class="task-info">
-                            <div class="task-status-active"></div>
-                            <div class="task-name-disabled">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
-                        </div>
-                        <div class="task-icon-wrap">
-                            <img class="task-icon" src="./assests/image/vertical-ellipsis.png" alt="">
-                        </div>
-                    </div>
                     <div class="add-task">
                         <img class="add-task-icon" src="./assests/image/plus-circle-white.png" alt="">
                         <span class="add-task-text">Add Task</span>
                     </div>
+                    <div class="add-task-info">
+                        <div class="add-task-info-wrap">
+                            <div class="task-title">
+                                <input placeholder="What are you working on?" type="text" name="task-title" id="task-title-input">    
+                            </div>
+                            <div class="est-pomo">
+                                <p class="est-pomo-title">Est Pomodoros</p>
+                                <div class="est-pomo-quantity">
+                                    <input type="number" min="0" step="1" value="1" name="est-pomo" id="est-pomo-input" pattern="^[1-9]+[0-9]*$">
+                                    <button class=" btn-est-pomo" id="est-pomo-inc">
+                                        <img src="./assests/image/caret-up.png" alt="" class="btn-est-pomo-icon">
+                                    </button>
+                                    <button class=" btn-est-pomo" id="est-pomo-des">
+                                        <img src="./assests/image/caret-down.png" alt="" class="btn-est-pomo-icon">
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="add-more-info">
+                                <button class="add-more-info-btn" id="add-note">+Add Note</button>
+                                <textarea name="task-note" id="task-note" cols="30" rows="10"></textarea>
+                                <button class=" add-more-info-btn" id="add-project">+Add Project</button>
+                            </div>
+                        </div>
+                        <div class="task-manipulation">
+                            <button class="task-manipulation-cancle">Cancle</button>
+                            <button class="task-manipulation-save" disabled>Save</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        
+
     </div>
     <footer id="footer">
 
@@ -95,4 +120,5 @@
     <script type="text/javascript" src="./assests/js/test.js"></script>
     <script type="text/javascript" src="./assests/js/index.js"></script>
 </body>
+
 </html>
