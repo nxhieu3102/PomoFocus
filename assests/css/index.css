@@ -260,7 +260,25 @@
     height: 60px;
     border-radius: 6px;
     background-color: var(--white-color);
+    border-left: 6px solid white;
+    cursor: pointer;
+    margin-bottom: 8px;
+}
+
+.task:hover{
+    border-left: 6px solid #ccc;
+}
+
+.task-active{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    border-radius: 6px;
+    background-color: var(--white-color);
     border-left: 6px solid rgb(34, 34, 34);
+    cursor: pointer;
     margin-bottom: 8px;
 }
 
@@ -278,7 +296,7 @@
     align-items: center;
 }
 
-#pomo-done{
+.pomo-done{
     font-size: 18px;
 }
 
