@@ -65,13 +65,13 @@ class pomoButton extends button {
 }
 
 const sbBtn = new shortBreakButton($(".btn-sb"), "var(--bg-color-sb)", "rgb(76, 145, 149)",
-    { minute: 5, second: "00" }, "1px solid #448286")
+    { minute: 0, second: "00" }, "1px solid #448286")
 
 const lbBtn = new longBreakButton($(".btn-lb"), "var(--bg-color-lb)", "rgb(69, 124, 163)",
-    { minute: 15, second: "00" }, "1px solid #3e6f92")
+    { minute: 0, second: "00" }, "1px solid #3e6f92")
 
 const pomoBtn = new pomoButton($(".btn-pomo"), "var(--bg-color-pomo)", "rgb(217, 85, 80)",
-    { minute: 25, second: "00" }, "1px solid #c34c48")
+    { minute: 0, second: "00" }, "1px solid #c34c48")
 
 
 const APP = {
@@ -79,10 +79,12 @@ const APP = {
     longBreak: lbBtn,
     pomo: pomoBtn,
     refreshIntervalId: null,
-    breakTimes: 0,
+    breakTimes: 1,
     currentStatus: null,
     currentTask: null,
     tasks: [],
+    taskId: 0,
+
     handleEventOfButton: function () {
         this.shortBreak.ClickEvent();
         this.longBreak.ClickEvent();
@@ -109,84 +111,99 @@ const APP = {
         })
     },
 
-    handleTasks: function(){
+    handleTasks: function () {
         this.handleAddTask()
         this.handleAddProject()
+
+        $(".task").click(function () {
+            $(".task-active").addClass("task")
+            $(".task-active").removeClass("task-active")
+            $(this).addClass("task-active")
+            $(this).removeClass("task")
+        })
     },
 
-    handleAddTask: function() {
+    handleAddTask: function () {
         const _this = this
-        $("#task-title-input").keyup(function(){
+        $("#task-title-input").keyup(function () {
             let taskTitle = $("#task-title-input").val()
-            if(taskTitle.length > 0) {
+            if (taskTitle.length > 0) {
                 $(".task-manipulation-save").removeAttr("disabled")
                 $(".task-manipulation-save").addClass("task-manipulation-save-enable")
                 $(".task-manipulation-save").removeClass("task-manipulation-save")
-            }else {
+            } else {
                 $(".task-manipulation-save-enable").attr("disabled")
                 $(".task-manipulation-save-enable").addClass("task-manipulation-save")
                 $(".task-manipulation-save-enable").removeClass("task-manipulation-save-enable")
             }
         })
 
-        $("#est-pomo-inc").click(function() {
+        $("#est-pomo-inc").click(function () {
             const quantity = parseInt($("#est-pomo-input").val()) + 1;
             $("#est-pomo-input").val(quantity)
         })
 
-        $("#est-pomo-des").click(function() {
+        $("#est-pomo-des").click(function () {
             const quantity = Math.max(1, parseInt($("#est-pomo-input").val()) - 1);
             $("#est-pomo-input").val(quantity)
         })
 
-        $(".task-manipulation-save").click(function() {
+        $(".task-manipulation-save").click(function () {
             const taskTitle = $("#task-title-input").val()
             const pomo = $("#est-pomo-input").val()
-            let task = {title: taskTitle, pomoDone: 0, pomoNotDone: pomo}
+            let task = { id: _this.taskId++, title: taskTitle, pomoDone: 0, pomoTotal: pomo }
             _this.tasks.push(task)
-            console.log(_this.tasks)
-            renderTask()
-            $(".add-task").css("display", "flex") 
+            _this.renderTask()
+            $(".add-task").css("display", "flex")
             $(".add-task-info").css("display", "none")
         })
 
-        $(".task-manipulation-cancle").click(function() {
-            $(".add-task").css("display", "flex") 
+        $(".task-manipulation-cancle").click(function () {
+            $(".add-task").css("display", "flex")
             $(".add-task-info").css("display", "none")
 
         })
 
-        $(".add-task").click(function() {
+        $(".add-task").click(function () {
             $("#task-title-input").val("")
             $(".add-task-info").css("display", "block")
             $(".add-task").css("display", "none")
         })
 
-        function renderTask() {
-            const task = _this.tasks[_this.tasks.length - 1]
-            console.log(task)
-            $(""+
-            "<div class='task'>" +
-                "<div class='task-info'>" +
-                "<div class='task-status'></div>" +
-                `<div class='task-name'>${task.title}</div>`+
-                "</div>"+
-                "<div class='task-opt'>"+
-                "<div class='task-est-pomo'>"+
-                `<p id='pomo-done'>${task.pomoDone}</p>`+
-                "/"+
-                `<p id='pomo-total'>${task.pomoNotDone}</p>`+
-                "</div>"+
-                "<div class='task-icon-wrap'>"+
-                "<img class='task-icon' src='./assests/image/vertical-ellipsis.png' alt=''>"+
-                "</div>"+
-                "</div>"+
-                "</div>"+
-            "").insertBefore(".add-task")
-        }
+
     },
 
-    handleAddProject: function() {
+    renderTask: function () {
+        const _this = this
+        console.log(this.tasks)
+        let elements = Array.from(document.getElementsByClassName("task"))
+        elements.forEach(function (item) {
+            item.remove()
+        })
+        this.tasks.forEach(function (task) {
+            $("" +
+                `<div class='task' task-id='${task.id}' >` +
+                "<div class='task-info'>" +
+                "<div class='task-status'></div>" +
+                `<div class='task-name'>${task.title}</div>` +
+                "</div>" +
+                "<div class='task-opt'>" +
+                "<div class='task-est-pomo'>" +
+                `<p class='pomo-done'>${task.pomoDone}</p>` +
+                "/" +
+                `<p class='pomo-total'>${task.pomoTotal}</p>` +
+                "</div>" +
+                "<div class='task-icon-wrap'>" +
+                "<img class='task-icon' src='./assests/image/vertical-ellipsis.png' alt=''>" +
+                "</div>" +
+                "</div>" +
+                "</div>" +
+                "").insertBefore(".add-task")
+            _this.handleTasks()
+        })
+
+    },
+    handleAddProject: function () {
 
     },
 
@@ -195,6 +212,7 @@ const APP = {
         $('.btn').html("STOP")
         $('.btn').css("box-shadow", "none")
         $('.btn').css("top", "6px")
+        const task = _this.getCurrentTask()
 
         let timerFunction = () => {
             let minute = parseInt($('#minute').text());
@@ -213,16 +231,20 @@ const APP = {
 
             if (minute == -1) {
                 _this.stopTimer()
-                _this.breakTimes += 1
                 _this.getCurrentStatus()
-
-                if (_this.currentStatus != pomo) {
+                if (_this.currentStatus == "pomo") {
+                    if (task != null){
+                        task.pomoDone += 1
+                        $(".task-active .pomo-done").text(task.pomoDone)
+                    }
                     if (_this.breakTimes % 3 == 0) {
+                        _this.breakTimes += 1
                         _this.longBreak.ChangeForm()
                         let time = _this.longBreak.getTime()
                         minute = time.minute
                         second = time.second
                     } else {
+                        _this.breakTimes += 1
                         _this.shortBreak.ChangeForm()
                         let time = _this.shortBreak.getTime()
                         minute = time.minute
@@ -249,25 +271,39 @@ const APP = {
         $('.btn').css("top", "0")
         clearInterval(this.refreshIntervalId)
     },
-    
+
     getCurrentStatus: function () {
-        let temp = $('.pomo-status-btn-active').hasClass('.btn-pomo')
+        let temp = $('.pomo-status-btn-active').hasClass('btn-pomo')
         if (temp == true) {
             this.currentStatus = "pomo";
             return;
         }
 
-        temp = $('.pomo-status-btn-active').hasClass('.btn-sb')
+        temp = $('.pomo-status-btn-active').hasClass('btn-sb')
         if (temp == true) {
             this.currentStatus = "shortBreak";
             return;
         }
 
-        temp = $('.pomo-status-btn-active').hasClass('.btn-lb')
+        temp = $('.pomo-status-btn-active').hasClass('btn-lb')
         if (temp == true) {
             this.currentStatus = "longBreak";
             return;
         }
+    },
+
+    getCurrentTask: function () {
+        if (!$(".task-active")[0])
+            return null;
+        const taskId = parseInt($(".task-active").attr("task-id"))
+        console.log($(".task-active .pomo-done"))
+        let task = null;
+        this.tasks.forEach(function (item) {
+            if (item.id == taskId) {
+                task = item;
+            }
+        })
+        return task;
     },
 
     start: function () {
@@ -280,4 +316,3 @@ const APP = {
 $(document).ready(function () {
     APP.start()
 })
-
