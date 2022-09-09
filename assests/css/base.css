@@ -58,3 +58,8 @@ a:hover{
     height: 16px;
 }
 
+#task-note::placeholder{
+    /* font-weight: bold; */
+    color: #dfdfdf;
+}
+
