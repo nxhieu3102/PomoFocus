@@ -48,30 +48,15 @@ class button {
         return this.#time;
     }
 }
-class shortBreakButton extends button {
-    constructor(btn, bgColor, color, time, borderColor) {
-        super(btn, bgColor, color, time, borderColor)
-    }
-}
-class longBreakButton extends button {
-    constructor(btn, bgColor, color, time, borderColor) {
-        super(btn, bgColor, color, time, borderColor)
-    }
-}
-class pomoButton extends button {
-    constructor(btn, bgColor, color, time, borderColor) {
-        super(btn, bgColor, color, time, borderColor)
-    }
-}
 
-const sbBtn = new shortBreakButton($(".btn-sb"), "var(--bg-color-sb)", "rgb(76, 145, 149)",
-    { minute: 0, second: "00" }, "1px solid #448286")
+const sbBtn = new button($(".btn-sb"), "var(--bg-color-sb)", "rgb(76, 145, 149)",
+    { minute: 5, second: "00" }, "1px solid #448286")
 
-const lbBtn = new longBreakButton($(".btn-lb"), "var(--bg-color-lb)", "rgb(69, 124, 163)",
-    { minute: 0, second: "00" }, "1px solid #3e6f92")
+const lbBtn = new button($(".btn-lb"), "var(--bg-color-lb)", "rgb(69, 124, 163)",
+    { minute: 15, second: "00" }, "1px solid #3e6f92")
 
-const pomoBtn = new pomoButton($(".btn-pomo"), "var(--bg-color-pomo)", "rgb(217, 85, 80)",
-    { minute: 0, second: "00" }, "1px solid #c34c48")
+const pomoBtn = new button($(".btn-pomo"), "var(--bg-color-pomo)", "rgb(217, 85, 80)",
+    { minute: 25, second: "00" }, "1px solid #c34c48")
 
 
 const APP = {
@@ -148,14 +133,22 @@ const APP = {
             $("#est-pomo-input").val(quantity)
         })
 
+        $('#add-note').click(function(){
+            $('#add-note').css('display', 'none');
+            $('#task-note').css('display', 'block')
+        })
+
         $(".task-manipulation-save").click(function () {
             const taskTitle = $("#task-title-input").val()
             const pomo = $("#est-pomo-input").val()
-            let task = { id: _this.taskId++, title: taskTitle, pomoDone: 0, pomoTotal: pomo }
+            const note = $('#task-note').val()
+            let task = { id: _this.taskId++, title: taskTitle, pomoDone: 0, pomoTotal: pomo, note: note}
             _this.tasks.push(task)
             _this.renderTask()
             $(".add-task").css("display", "flex")
             $(".add-task-info").css("display", "none")
+            $('#add-note').css('display', 'block');
+            $('#task-note').css('display', 'note')
         })
 
         $(".task-manipulation-cancle").click(function () {
@@ -209,7 +202,9 @@ const APP = {
     handleEditTask: function () {
         const _this = this
         $(".edit-task").click(function () {
-            const task = $(this).closest(".task");
+            let task = $(this).closest(".task")
+            if(task.length == 0)
+                task = $(this).closest(".task-active")
             const id = parseInt(task.attr("task-id"))
             const currentTask = _this.getTaskById(id);
             task.replaceWith(""
