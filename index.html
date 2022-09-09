@@ -83,12 +83,12 @@
                     <div class="add-task-info">
                         <div class="add-task-info-wrap">
                             <div class="task-title">
-                                <input placeholder="What are you working on?" type="text" name="task-title" id="task-title-input">    
+                                <input placeholder="What are you working on?" type="text" name="task-title" id="task-title-input" required>    
                             </div>
                             <div class="est-pomo">
                                 <p class="est-pomo-title">Est Pomodoros</p>
                                 <div class="est-pomo-quantity">
-                                    <input type="number" min="0" step="1" value="1" name="est-pomo" id="est-pomo-input" pattern="^[1-9]+[0-9]*$">
+                                    <input type="number" min="0" value="1" name="est-pomo" id="est-pomo-input" pattern="^[1-9]+[0-9]*$">
                                     <button class=" btn-est-pomo" id="est-pomo-inc">
                                         <img src="./assests/image/caret-up.png" alt="" class="btn-est-pomo-icon">
                                     </button>
@@ -105,7 +105,7 @@
                         </div>
                         <div class="task-manipulation">
                             <button class="task-manipulation-cancle">Cancle</button>
-                            <button class="task-manipulation-save" disabled>Save</button>
+                            <button class="task-manipulation-save">Save</button>
                         </div>
                     </div>
                 </div>
@@ -117,8 +117,8 @@
 
     </footer>
 
-    <script type="text/javascript" src="./assests/js/test.js"></script>
     <script type="text/javascript" src="./assests/js/index.js"></script>
+    <script type="text/javascript" src="./assests/js/test.js"></script>
 </body>
 
 </html>

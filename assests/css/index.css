@@ -80,6 +80,7 @@
 
 .app-container{
     padding-top: 40px;
+    padding-bottom: 40px;
     max-width: 620px;
     margin: auto;
 }
@@ -389,7 +390,8 @@
 }
 
 
-.add-task-info-wrap{
+.add-task-info-wrap,
+.edit-task-info-wrap{
     margin-top: 14px;
     background-color: white;
     padding: 20px;
@@ -402,7 +404,8 @@
 
 }
 
-#task-title-input{
+#task-title-input,
+#edit-task-title-input{
     border-radius: 4px;
     font-size: 22px;
     padding: 10px 0px;
@@ -414,7 +417,8 @@
     font-weight: bold;
 }
 
-#task-title-input::placeholder{
+#task-title-input::placeholder,
+#edit-task-title-input::placeholder{
     color: rgb(221, 221, 221);
     font-style: italic;
 }
@@ -436,7 +440,8 @@
     align-items: center;
 }
 
-#est-pomo-input{
+#est-pomo-input,
+#edit-task-est-pomo-input{
     border-radius: 4px;
     background-color: rgb(239, 239, 239);
     font-size: 16px;
@@ -522,7 +527,8 @@
     margin: 8px 0px;
 }
 
-.task-manipulation{
+.task-manipulation,
+.edit-task-manipulation{
     padding: 14px 20px;
     text-align: right;
     border-bottom-left-radius: 8px;
@@ -536,7 +542,8 @@
     width: 100%;
 }
 
-.task-manipulation-cancle{
+.task-manipulation-cancle,
+.edit-task-manipulation-cancle{
     -webkit-box-align: center;
     align-items: center;
     -webkit-box-pack: center;
@@ -557,7 +564,8 @@
     box-shadow: none;
 }
 
-.task-manipulation-save{
+.task-manipulation-save,
+.edit-task-manipulation-save{
     -webkit-box-align: center;
     align-items: center;
     -webkit-box-pack: center;
@@ -577,7 +585,33 @@
     background-color: rgb(171, 171, 171);
 }
 
-.task-manipulation-save-enable{
+.edit-task-manipulation-delete{
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0.9;
+    font-size: 14px;
+    padding: 8px 12px;
+    min-width: 70px;
+    display: inline-block;
+    margin-right: 14px;
+    background: none;
+    border: none;
+    color: rgb(136, 136, 136);
+    font-weight: bold;
+    box-shadow: none;
+}
+
+.task-manipulation-delete:hover{
+    opacity: 1;
+}
+
+.task-manipulation-save-enable,
+.edit-task-manipulation-save-enable{
     -webkit-box-align: center;
     align-items: center;
     -webkit-box-pack: center;

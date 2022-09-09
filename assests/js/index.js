@@ -114,12 +114,12 @@ const APP = {
     handleTasks: function () {
         this.handleAddTask()
         this.handleAddProject()
-
-        $(".task").click(function () {
+        this.handleEditTask()
+        $(".task-info").click(function () {
             $(".task-active").addClass("task")
             $(".task-active").removeClass("task-active")
-            $(this).addClass("task-active")
-            $(this).removeClass("task")
+            $(this).parent().addClass("task-active")
+            $(this).parent().removeClass("task")
         })
     },
 
@@ -138,12 +138,12 @@ const APP = {
             }
         })
 
-        $("#est-pomo-inc").click(function () {
+        $("#est-pomo-inc").unbind('click').click(function () {
             const quantity = parseInt($("#est-pomo-input").val()) + 1;
             $("#est-pomo-input").val(quantity)
         })
 
-        $("#est-pomo-des").click(function () {
+        $("#est-pomo-des").unbind('click').click(function () {
             const quantity = Math.max(1, parseInt($("#est-pomo-input").val()) - 1);
             $("#est-pomo-input").val(quantity)
         })
@@ -166,16 +166,18 @@ const APP = {
 
         $(".add-task").click(function () {
             $("#task-title-input").val("")
+            $("#est-pomo-input").val("1")
+            $(".task-manipulation-save-enable").attr("disabled")
+            $(".task-manipulation-save-enable").addClass("task-manipulation-save")
+            $(".task-manipulation-save-enable").removeClass("task-manipulation-save-enable")
             $(".add-task-info").css("display", "block")
             $(".add-task").css("display", "none")
+
         })
-
-
     },
 
     renderTask: function () {
         const _this = this
-        console.log(this.tasks)
         let elements = Array.from(document.getElementsByClassName("task"))
         elements.forEach(function (item) {
             item.remove()
@@ -193,7 +195,7 @@ const APP = {
                 "/" +
                 `<p class='pomo-total'>${task.pomoTotal}</p>` +
                 "</div>" +
-                "<div class='task-icon-wrap'>" +
+                "<div class='task-icon-wrap edit-task'>" +
                 "<img class='task-icon' src='./assests/image/vertical-ellipsis.png' alt=''>" +
                 "</div>" +
                 "</div>" +
@@ -203,6 +205,97 @@ const APP = {
         })
 
     },
+
+    handleEditTask: function () {
+        const _this = this
+        $(".edit-task").click(function () {
+            const task = $(this).closest(".task");
+            const id = parseInt(task.attr("task-id"))
+            const currentTask = _this.getTaskById(id);
+            task.replaceWith(""
+                + "<div class='edit-task'>"
+                + "<div class='edit-task-info-wrap'>"
+                + "<div class='task-title'>"
+                + "<input placeholder='What are you working on?' type='text' name='task-title' id='edit-task-title-input' required>"
+                + "</div>"
+                + "<div class='est-pomo'>"
+                + "<p class='est-pomo-title'>Est Pomodoros</p>"
+                + "<div class='est-pomo-quantity'>"
+                + "<input type='number' min='0' value='1' name='est-pomo' id='edit-task-est-pomo-input' pattern='^[1-9]+[0-9]*$'>"
+                + "<button class=' btn-est-pomo' id='edit-task-est-pomo-inc'>"
+                + "<img src='./assests/image/caret-up.png' alt='' class='btn-est-pomo-icon'>"
+                + "</button>"
+                + "<button class=' btn-est-pomo' id='edit-task-est-pomo-des'>"
+                + "<img src='./assests/image/caret-down.png' alt='' class='btn-est-pomo-icon'>"
+                + "</button>"
+                + "</div>"
+                + "</div>"
+                + "<div class='add-more-info'>"
+                + "<button class='add-more-info-btn' id='add-note'>+Add Note</button>"
+                + "<textarea name='task-note' id='task-note' cols='30' rows='10'></textarea>"
+                + "<button class=' add-more-info-btn' id='add-project'>+Add Project</button>"
+                + "</div>"
+                + "</div>"
+                + "<div class='edit-task-manipulation'>"
+                + "<button class='edit-task-manipulation-delete'>Delete</button>"
+                + "<button class='edit-task-manipulation-cancle'>Cancle</button>"
+                + "<button class='edit-task-manipulation-save-enable'>Save</button>"
+                + "</div>"
+                + "</div>"
+                + "")
+
+            $('#edit-task-title-input').val(currentTask.title)
+            $('#edit-task-est-pomo-input').val(currentTask.pomoTotal)
+            $('.edit-task').css("display", "block")
+
+            $("#edit-task-est-pomo-input").keyup(function () {
+                let taskTitle = $("#edit-task-est-pomo-input").val()
+                if (taskTitle.length > 0) {
+                    $(".edit-task-manipulation-save").removeAttr("disabled")
+                    $(".edit-task-manipulation-save").addClass("edit-task-manipulation-save-enable")
+                    $(".edit-task-manipulation-save").removeClass("edit-task-manipulation-save")
+                } else {
+                    $(".edit-task-manipulation-save-enable").attr("disabled")
+                    $(".edit-task-manipulation-save-enable").addClass("edit-task-manipulation-save")
+                    $(".edit-task-manipulation-save-enable").removeClass("edit-task-manipulation-save-enable")
+                }
+            })
+
+            $("#edit-task-est-pomo-inc").unbind('click').click(function () {
+                const quantity = parseInt($("#edit-task-est-pomo-input").val()) + 1;
+                $("#edit-task-est-pomo-input").val(quantity)
+            })
+
+            $("#edit-task-est-pomo-des").unbind('click').click(function () {
+                const quantity = Math.max(1, parseInt($("#edit-task-est-pomo-input").val()) - 1);
+                $("#edit-task-est-pomo-input").val(quantity)
+            })
+
+            $('.edit-task-manipulation-save-enable').click(function () {
+                currentTask.title = $('#edit-task-title-input').val()
+                currentTask.pomoTotal = parseInt($('#edit-task-est-pomo-input').val())
+                $(".edit-task").remove()
+                _this.renderTask()
+
+            })
+
+            $('.edit-task-manipulation-cancle').click(function () {
+                $(".edit-task").remove()
+                _this.renderTask()
+            })
+
+            $('.edit-task-manipulation-delete').click(function () {
+                _this.tasks = _this.tasks.filter(function(item){
+                    return item.id != id;
+                })
+                $(".edit-task").remove()
+                _this.renderTask()
+            })
+
+            _this.handleAddTask()
+        })
+    },
+
     handleAddProject: function () {
 
     },
@@ -233,7 +326,7 @@ const APP = {
                 _this.stopTimer()
                 _this.getCurrentStatus()
                 if (_this.currentStatus == "pomo") {
-                    if (task != null){
+                    if (task != null) {
                         task.pomoDone += 1
                         $(".task-active .pomo-done").text(task.pomoDone)
                     }
@@ -292,11 +385,20 @@ const APP = {
         }
     },
 
+    getTaskById: function (id) {
+
+        for (let i = 0; i < this.tasks.length; i++) {
+            if (this.tasks[i].id == id) {
+                return this.tasks[i];
+            }
+        }
+        return null;
+    },
+
     getCurrentTask: function () {
         if (!$(".task-active")[0])
             return null;
         const taskId = parseInt($(".task-active").attr("task-id"))
-        console.log($(".task-active .pomo-done"))
         let task = null;
         this.tasks.forEach(function (item) {
             if (item.id == taskId) {
